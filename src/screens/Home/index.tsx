@@ -8,6 +8,9 @@ import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Link } from 'expo-router';
 import { Pressable, useColorScheme } from 'react-native';
 
+
+import { IconButton, Icon, MD3Colors } from 'react-native-paper';
+
 const Tab = createBottomTabNavigator();
 
 import Colors from '../../../constants/Colors';
@@ -44,7 +47,7 @@ function MyTabs() {
           name="Home"
           component={HomeScreen}
           options={{
-            title: 'Tab One',
+            headerShown: false,
             tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
             headerRight: () => (
               <Link href="/modal" asChild>
@@ -67,7 +70,7 @@ function MyTabs() {
           name="PayStubScreen"
           component={PayStubScreen}
           options={{
-            title: 'Tab One',
+            headerShown: false,
             tabBarIcon: ({ color }) => <TabBarIcon name="money" color={color} />,
           }}
         />
@@ -76,11 +79,20 @@ function MyTabs() {
           name="CareerScreen"
           component={CareerScreen}
           options={{
-            title: 'Tab One',
+            headerShown: false,
             tabBarIcon: ({ color }) => <TabBarIcon name="tablet" color={color} />,
           }}
         />
-        <Tab.Screen name="Settings" component={SettingsScreen} />
+        <Tab.Screen name="Settings" component={SettingsScreen}
+
+          options={{
+            title: 'Tab One',
+            tabBarIcon: ({ color }) => <Icon
+              source="home"
+              color={color}
+              size={20}
+            />
+          }} />
       </Tab.Navigator>
     </NavigationContainer>
   );
