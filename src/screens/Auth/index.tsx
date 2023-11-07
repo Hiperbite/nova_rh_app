@@ -17,19 +17,17 @@ const MyStack = ({ setAuthenticated }: any) => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="Home"
+        name="SignIn"
         component={SignInStack}
         options={{
           headerShown: false,
-          title: "Sing In",
         }}
       />
       <Stack.Screen
-        name="Profile"
+        name="SignOn"
         component={SignOn}
         options={{
           headerShown: false,
-          title: "Sign On",
         }}
       />
     </Stack.Navigator>

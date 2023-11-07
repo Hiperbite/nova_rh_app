@@ -97,7 +97,7 @@ export const Screens = () => {
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <PaperProvider>
-        {isSignIn ? <Home /> : <Auth setAuthenticated={setAuthenticated} />}
+        {isAuthenticated ? <Home /> : <Auth setAuthenticated={setAuthenticated} />}
       </PaperProvider>
     </ThemeProvider>
   );

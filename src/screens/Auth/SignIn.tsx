@@ -1,60 +1,75 @@
 import React from "react";
 import { useContext, useState } from "react";
 
-import { StyleSheet, TouchableOpacity } from "react-native";
+import { TouchableOpacity, StyleSheet } from 'react-native'
+import Background from '../../components/Background'
+import Logo from '../../components/Logo'
+import Header from '../../components/Header'
+import Button from '../../components/Button'
+import TextInput from '../../components/TextInput'
+import BackButton from '../../components/BackButton'
+
 import { Text, View } from "../../../components/Themed";
 import { AuthContext } from "../../service/providers/authProvider";
-import { Button, TextInput } from "react-native-paper";
 
 export const SignIn = ({ navigation, setAuthenticated }: any) => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState({ value: '', error: '' })
+  const [password, setPassword] = useState({ value: '', error: '' })
 
-  const [secureTextEntry, setSecureTextEntry]=useState(true);
-
-  const { signIn }: any = useContext(AuthContext);
-
+  const onLoginPressed = () => {
+    const emailError = ''//emailValidator(email.value)
+    const passwordError = ''//passwordValidator(password.value)
+    if (emailError || passwordError) {
+      setEmail({ ...email, error: emailError })
+      setPassword({ ...password, error: passwordError })
+      //return
+    }
+    setAuthenticated(true)
+   
+  }
   return (
-    <View style={{ flex: 1 }}>
-      <View style={{ flex: 1, backgroundColor: "powderblue" }} />
-      <View style={{ flex: 2, backgroundColor: "skyblue" }}>
-        <Text variant="displayLarge">Sign In {secureTextEntry ? 1 : 0}</Text>
-        <View style={{ flex: 1, backgroundColor: "powderblue" }}>
-          <TextInput
-            label="Username"
-            value={username}
-            mode={"outlined"}
-            onChangeText={setUsername}
-          />
-          <TextInput
-            value={password}
-            onChangeText={setPassword}
-            secureTextEntry={secureTextEntry}
-            mode={"outlined"}
-            right={
-              <TouchableOpacity
-                onClick={() => setSecureTextEntry(!secureTextEntry)}
-              >
-                <Text>1</Text>
-                <TextInput.Icon icon="eye" />
-              </TouchableOpacity>
-            }
-          />
-          <Button onPress={() => signIn({ username, password })}>
-            Sign In
-          </Button>
-        </View>
-      </View>
-      <View style={{ flex: 3, backgroundColor: "steelblue" }}>
-        <Text>index</Text>
-        <TouchableOpacity
-          style={styles.loginButton}
-          onPress={() => setAuthenticated(true)}
-        >
-          <Text>Login</Text>
-        </TouchableOpacity>
-      </View>
+    <Background>
+    
+      <Logo />
+      <Header>Welcome back.</Header>
+    <TextInput
+      label="Email"
+      returnKeyType="next"
+      value={email.value}
+      onChangeText={(text) => setEmail({ value: text, error: '' })}
+      error={!!email.error}
+      errorText={email.error}
+      autoCapitalize="none"
+      
+      textContentType="emailAddress"
+      keyboardType="email-address"
+    />
+    <TextInput
+      label="Password"
+      returnKeyType="done"
+      value={password.value}
+      onChangeText={(text) => setPassword({ value: text, error: '' })}
+      error={!!password.error}
+      errorText={password.error}
+      secureTextEntry
+    />
+    <View style={styles.forgotPassword}>
+      <TouchableOpacity
+        onPress={() => navigation.navigate('ResetPasswordScreen')}
+      >
+        <Text style={styles.forgot}>Forgot your password?</Text>
+      </TouchableOpacity>
     </View>
+    <Button mode="gradient" onPress={onLoginPressed}>
+      Login
+    </Button>
+    <View style={styles.row}>
+      <Text>Don’t have an account? </Text>
+      <TouchableOpacity onPress={() => navigation.navigate('SignOn')}>
+        <Text style={styles.link}>Sign up</Text>
+      </TouchableOpacity>
+    </View>
+  </Background>
   );
 };
 
@@ -68,4 +83,21 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-});
+  forgotPassword: {
+    width: '100%',
+    alignItems: 'flex-end',
+    marginBottom: 24,
+  },
+  row: {
+    flexDirection: 'row',
+    marginTop: 4,
+  },
+  forgot: {
+    fontSize: 13,
+    //color: theme.colors.secondary,
+  },
+  link: {
+    fontWeight: 'bold',
+   // color: theme.colors.primary,
+  },
+})
