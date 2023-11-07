@@ -11,14 +11,14 @@ import 'react-native-gesture-handler';
 export const Screens = () => {
 
     const [isAuthenticated, setAuthenticated] = useState(false)
-
+    const [state:{isSignIn}]=useAuthReducer();
     const colorScheme = useColorScheme();
     return (
 
         <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
             <PaperProvider>
                 {
-                    isAuthenticated ? <Home /> : <Auth setAuthenticated={setAuthenticated} />
+                    isSignIn ? <Home /> : <Auth setAuthenticated={setAuthenticated} />
                 }
             </PaperProvider>
         </ThemeProvider>
