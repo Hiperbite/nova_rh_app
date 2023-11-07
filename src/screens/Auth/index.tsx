@@ -18,13 +18,20 @@ const MyStack = ({ setAuthenticated }: any) => {
     <Stack.Navigator>
       <Stack.Screen
         name="Home"
-
         component={SignInStack}
-
-        options={{ title: 'Sing In' }}
+        options={{
+          headerShown: false,
+          title: "Sing In",
+        }}
       />
-      <Stack.Screen name="Profile" component={SignOn}
-        options={{ title: 'Sign On' }} />
+      <Stack.Screen
+        name="Profile"
+        component={SignOn}
+        options={{
+          headerShown: false,
+          title: "Sign On",
+        }}
+      />
     </Stack.Navigator>
   );
 

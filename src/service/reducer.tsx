@@ -1,23 +1,22 @@
-const {useReducer} from 'react'
+import { useReducer } from "react";
 
-import * as SecureStore from 'expo-secure-store';
-
-const useAuthReducer=useReducer(
-    (prevState:any, action:any) => {
+const useAuthReducer: any = () =>
+  useReducer(
+    (prevState: any, action: any) => {
       switch (action.type) {
-        case 'RESTORE_TOKEN':
+        case "RESTORE_TOKEN":
           return {
             ...prevState,
             userToken: action.token,
             isLoading: false,
           };
-        case 'SIGN_IN':
+        case "SIGN_IN":
           return {
             ...prevState,
             isSignIn: false,
             userToken: action.token,
           };
-        case 'SIGN_OUT':
+        case "SIGN_OUT":
           return {
             ...prevState,
             isSignIn: true,
@@ -32,5 +31,4 @@ const useAuthReducer=useReducer(
     }
   );
 
-
-  export default useAuthReducer;
+export default useAuthReducer;
